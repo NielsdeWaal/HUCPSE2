@@ -1,0 +1,7 @@
+(148,72) CIRCLE green 10
+(62,86) RECTANGLE red (50,80)
+(490,201) PICTURE ./HateSymbol.jpg
+(310,254) LINE magenta (410,304)
+(1010,600) LINE red (408,303)
+(150,600) CIRCLE white 50
+(200,600) LINE black (200,650)
