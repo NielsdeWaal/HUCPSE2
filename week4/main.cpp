@@ -5,18 +5,12 @@
 #include <iterator>
 #include <map>
 
-auto countChar(const std::vector<char>& countVector, const char& character) {
-    std::map<char, int> resultMap;
-    resultMap[character] = std::count(countVector.begin(), countVector.end(), character);
-    return resultMap;
-}
-
 auto countCharacters(const std::vector<char>& countVector) {
-    auto std::vector<std::map> resultVector;
+    std::map<char, int> resultMap;
     for(auto character = 0x61; character <= 0x7A; ++character) {
-        resultVector.push_back(countChar(countVector, character));
+        resultMap[character] = std::count(countVector.begin(), countVector.end(), character);
     }
-    return resultVector;
+    return resultMap;
 }
 
 auto fillVector(const auto& filename, std::vector<char>& destVector) {
@@ -49,8 +43,15 @@ int main() {
         std::cout << "Amount of characters: " << alphabeticCharacters << "\n";
         std::cout << "Converting characters to lowercase" << "\n";
 
-        for(auto p : characterCount) {
-            std::cout << p
+        for (auto&& [key,value] : characterCount) {
+            std::cout << "Char: " << key << ", value: " << value << "\n";
+        }
+
+        
+
+        for (auto&& [key,value] : characterCount) {
+            std::cout << "Char: " << key << ", value: " << value << "\n";
+        }
 
     } catch(...) {
         std::cout << "Data incorrect" << "\n";
