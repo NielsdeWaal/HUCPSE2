@@ -14,6 +14,20 @@ auto countCharacters(const std::vector<char>& countVector) {
     return resultMap;
 }
 
+auto countWords(const std::vector<std::string>& wordVector, std::map<std::string, int>& destMap) {
+    for(auto const& word : wordVector) {
+        destMap[word] += 1;
+    }
+
+    std::map<int, std::string, std::greater<int>> resultMap;
+
+    for (auto&& [key, value] : destMap) {
+        resultMap[value] = key;
+    }
+
+    return resultMap;
+}
+
 auto fillVector(const auto& filename, std::vector<char>& destVector) {
     std::ifstream file("bible.txt");
 
@@ -43,12 +57,16 @@ int main() {
     auto lines = std::count(characterVector.begin(), characterVector.end(), '\n');
     auto alphabeticCharacters = std::count_if(characterVector.begin(),
                                               characterVector.end(),
-                                              [](char c){return /*('a' <= c <= 'z')||('A' <= c <= 'Z');*/ isalpha(c);});
+                                              [](char c){return isalpha(c);});
     std::transform(characterVector.begin(), characterVector.end(), characterVector.begin(),
                     [](char c) -> char {return std::tolower(c);});
 
     auto characterCount = countCharacters(characterVector);
     std::map<int, char> countOrderMap;
+    std::map<std::string, int> wordCountMap;
+
+    auto frequentyCount = countWords(wordVector, wordCountMap);
+    auto counter = 0;
 
     for (auto&& [key, value] : characterCount) {
         countOrderMap[value] = key;
@@ -64,9 +82,16 @@ int main() {
             std::cout << "Char: " << key << ", value: " << value << "\n";
         }
 
-
         for (auto&& [key,value] : countOrderMap) {
             std::cout << "Char: " << key << ", value: " << value << "\n";
+        }
+
+        for (auto&& [key,value] : frequentyCount) {
+            if (counter > 10) 
+                break;
+
+            std::cout << "Word: " << key << ", value: " << value << "\n";
+            counter++;
         }
 
     } catch(...) {
